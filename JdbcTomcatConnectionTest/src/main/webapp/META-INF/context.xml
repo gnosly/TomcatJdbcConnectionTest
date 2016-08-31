@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/JdbcTomcatConnectionTest">
+  <Resource name="jdbc/backoffice"
+            auth="Container"
+            type="javax.sql.DataSource"
+            factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+            testOnBorrow="true"
+            testWhileIdle="true"
+            validationQuery="/* ping */"
+            maxActive="32"
+            minIdle="0"
+            maxIdle="4"
+            maxWait="3000"
+            initialSize="1"
+            removeAbandoned="true"
+            removeAbandonedTimeout="10" 
+            logAbandoned="true"
+            jmxEnabled="true"
+            jdbcInterceptors="ConnectionState;StatementFinalizer;SlowQueryReportJmx;ResetAbandonedTimer"
+            driverClassName="com.mysql.jdbc.Driver"
+            username="<change_username_on_context_xml>" password="change_password_on_context_xml"
+            url="<change_url_on_context_xml>" />
+
+</Context>
