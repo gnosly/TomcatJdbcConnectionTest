@@ -12,3 +12,4 @@
 hs_err_pid*
 /JdbcTomcatConnectionTest/nb-configuration.xml
 /nb-configuration.xml
+/target/
