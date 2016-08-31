@@ -10,16 +10,12 @@
     <h2>Goal</h2>
     <p>The goal of this web app is to show how analyze the tomcat connection pool in case of abandoned connections.</p>
     <h2>How it works</h2>
-    <p>Each time you click on the following button a new connection on db is opened but never close.</p>
+    <p>Each time you click on the following button a new connection on db is opened but never closed.</p>
     <h2>How to analyze</h2>
-    <p>Before all, take a look at the resource configuration in the context.xml</p>
-    <q>
-      
-      
-    </q>
+    <p>Read the article on my <a href="http://fabriziogiovannetti.com/blog" >blog</a></p>
     <f:view>
       <h:form>
-        <h:commandButton action="#{fireConnector.execute()}" value="fire" label="open a new abandoned connection"/> 
+        <h:commandButton action="#{fireConnector.execute()}" value="open a new abandoned connection" label="open a new abandoned connection"/> 
       </h:form>
     </f:view>
   </h:body>
