@@ -4,12 +4,21 @@
             auth="Container"
             type="javax.sql.DataSource"
             factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+            testOnBorrow="true"
+            testWhileIdle="true"
             validationQuery="/* ping */"
             maxActive="32"
             minIdle="0"
             maxIdle="4"
             maxWait="3000"
+            initialSize="1"
+            removeAbandoned="true"
+            removeAbandonedTimeout="10" 
+            logAbandoned="true"
+            jmxEnabled="true"
+            jdbcInterceptors="ConnectionState;StatementFinalizer;SlowQueryReportJmx;ResetAbandonedTimer"
             driverClassName="com.mysql.jdbc.Driver"
-            username="<change_username_on_context_xml>" password="<change_password_on_context_xml>"
-            url="<change_url_on_context_xml>" />
+            username="webapp" password="webapp123"
+            url="jdbc:mysql://svarion.viaggiare.intra:3306/volagratis?zeroDateTime-Behavior=convertToNull&amp;characterEncoding=UTF-8&amp;characterSetResults=UTF-8&amp;useCompression=true" />
+
 </Context>
