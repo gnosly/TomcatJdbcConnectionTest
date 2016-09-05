@@ -41,12 +41,25 @@ In order to demostrate the thesis you need to follow this steps:
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/jconsole_mbean.png "MBean opened in jconsole")
 
-5. open in a browser the web app welcome page http://localhost:8080/JdbcTomcatConnectionTest/ and click on the button *open a new abandoned connection*. Now you could see on Jmx that each time you click the button the line of active connection grows and never goes down   
+5. open in a browser the web app welcome page http://localhost:8080/JdbcTomcatConnectionTest/ and click on the button *open a new abandoned connection*. 
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/webapp_welcome_page.png "Web app welcome page")
 
 
-6. wait..but..the abandoned connection recognizer is active by default on Tomcat?. Actually no. you need to add the following properties in the Resource configuration inside the context.xml
+6. Now you could see on Jmx that at each click the line of active connections grows and never goes down   
+
+![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/active_connection_increase.png "Active connections increased on jconsole") 
+
+6. wait..but..the abandoned connection recognizer is active by default on Tomcat?. Actually no. From the [tomcat documentation on jdbc pool](https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html) we can find three useful properties:
+
+| property name| description |
+| removeAbandoned	| (boolean) Flag to remove abandoned connections if they exceed the removeAbandonedTimeout. If set to true a connection is considered abandoned and eligible for removal if it has been in use longer than the removeAbandonedTimeout Setting this to true can recover db connections from applications that fail to close a connection. See also logAbandoned The default value is false. |
+
+| removeAbandonedTimeout | (int) Timeout in seconds before an abandoned(in use) connection can be removed. The default value is 60 (60 seconds). The value should be set to the longest running query your applications might have.|
+
+|logAbandoned | (boolean) Flag to log stack traces for application code which abandoned a Connection. Logging of abandoned Connections adds overhead for every Connection borrow because a stack trace has to be generated. The default value is false.|
+
+So you need to add the following properties in the Resource configuration inside the context.xml
 
 ```xml
   <Resource name="jdbc/backoffice"
@@ -57,10 +70,6 @@ In order to demostrate the thesis you need to follow this steps:
 
 ...	/>
 ```
-
-
- //TODO: tomcat doc page
- //TODO: descr meaning of the properties
  
  7. change the context.xml as suggested before and restart the tomcat with the new webapp
  8. click on the button again and take a look on Jmx. Now the line grows and after 10 seconds drop down. If you see the log you shoud see the log that give you the point where the connection was opened.
