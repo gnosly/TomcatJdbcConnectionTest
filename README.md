@@ -41,7 +41,7 @@ In order to demostrate the thesis you need to follow this steps:
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/jconsole_mbean.png "MBean opened in jconsole")
 
-5. open in a browser the web app welcome page http://localhost:8080/JdbcTomcatConnectionTest/ and click on the button. Now you could see on Jmx that each time you click the button the line of active connection grows and never goes down   
+5. open in a browser the web app welcome page http://localhost:8080/JdbcTomcatConnectionTest/ and click on the button *open a new abandoned connection*. Now you could see on Jmx that each time you click the button the line of active connection grows and never goes down   
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/webapp_welcome_page.png "Web app welcome page")
 
@@ -55,7 +55,7 @@ In order to demostrate the thesis you need to follow this steps:
 	removeAbandonedTimeout="10" 
 	logAbandoned="true"
 
-...
+...	/>
 ```
 
 
