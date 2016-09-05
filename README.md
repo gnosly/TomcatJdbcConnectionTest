@@ -19,7 +19,7 @@ In order to demostrate the thesis you need to follow this steps:
 
 
 1. clone this repository
-2. change the /META-INF/context.xml filling the correct username, password and jdbc url in the Resource tag
+2. change the /META-INF/context.xml filling the resource tag with the username, the password and the jdbc url of your db under test
 
 ```xml
   <Resource name="jdbc/backoffice"
@@ -36,17 +36,27 @@ In order to demostrate the thesis you need to follow this steps:
             url="<change_url_on_context_xml>" /> 
 ```
 
-3. run the web app
-4. connect using VisualVM or jConsole to the tomcat and open the mbean Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice and show the metric 'active' clicking on the value of it.
+3. deploy and run the application on your tomcat
+4. open jconsole and connect through jmx to the tomcat. Open the jmx MBean Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice and show the metric 'active' clicking on the value of it.
 
- 
+![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/src/main/doc/jconsole_mbean.png "MBean opened in jconsole")
 
-5. click on the button. Now you could see on Jmx that each time you click the button the line of active connection grows and never goes down   
+5. open in a browser the web app welcome page http://localhost:8080/JdbcTomcatConnectionTest/ and click on the button. Now you could see on Jmx that each time you click the button the line of active connection grows and never goes down   
+
+![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/src/main/doc/webapp_welcome_page.png "Web app welcome page")
+
+
 6. wait..but..the abandoned connection recognizer is active by default on Tomcat?. Actually no. you need to add the following properties in the Resource configuration inside the context.xml
 
-removeAbandoned="true"
-removeAbandonedTimeout="10" 
-logAbandoned="true"
+```xml
+  <Resource name="jdbc/backoffice"
+...
+	removeAbandoned="true"
+	removeAbandonedTimeout="10" 
+	logAbandoned="true"
+
+...
+```
 
 
  //TODO: tomcat doc page
