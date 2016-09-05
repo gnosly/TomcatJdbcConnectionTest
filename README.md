@@ -41,12 +41,12 @@ In order to demostrate the thesis you need to follow this steps:
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/jconsole_mbean.png "MBean opened in jconsole")
 
-5. open in a browser the web app welcome page http://localhost:8080/JdbcTomcatConnectionTest/ and click on the button *open a new abandoned connection*. 
+5. open in a browser the welcome page [http://localhost:8080/JdbcTomcatConnectionTest/] (http://localhost:8080/JdbcTomcatConnectionTest/) and click on the button *open a new abandoned connection*. 
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/webapp_welcome_page.png "Web app welcome page")
 
 
-6. Now you could see on Jmx that at each click the line of active connections grows and never goes down   
+6. Now you could see on jconsole that at each click the line of active connections grows and never goes down   
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/active_connection_increase.png "Active connections increased on jconsole") 
 
@@ -58,11 +58,7 @@ In order to demostrate the thesis you need to follow this steps:
 | removeAbandonedTimeout | (int) Timeout in seconds before an abandoned(in use) connection can be removed. The default value is 60 (60 seconds). The value should be set to the longest running query your applications might have.|
 |logAbandoned | (boolean) Flag to log stack traces for application code which abandoned a Connection. Logging of abandoned Connections adds overhead for every Connection borrow because a stack trace has to be generated. The default value is false.|
 
-So you need to add the following properties in the Resource configuration inside the context.xml. *logAbandoned* let the tomcat to print the stacktrace of the code that is resposanble of the abandoned connection. *removeAbandonedTimeout* is set to 10 seconds for test reason. *removeAbandoned* is in charge of 
-a. enabling abandoned connections check and, if *logAbandoned* is true, logging the stacktrace
-b. closing really the connection
-
-__It's important to know that without *removeAbandoned=true* the stacktrace will not appear because actually __
+So you need to add the following properties in the Resource configuration inside the context.xml. 
 
 ```xml
   <Resource name="jdbc/backoffice"
@@ -73,9 +69,15 @@ __It's important to know that without *removeAbandoned=true* the stacktrace will
 
 ...	/>
 ```
+*logAbandoned* let the tomcat to print the stacktrace of the code that is resposanble of the abandoned connection. *removeAbandonedTimeout* is set to 10 seconds for speed up the test. *removeAbandoned* is in charge of 
+a. enabling abandoned connections check and, if *logAbandoned* is true, logging the stacktrace
+b. closing really the connection
+
+__It's important to know that without *removeAbandoned=true* the stacktrace will not appear because actually the abandoned connection check is not performed__
+
  
- 7. change the context.xml as suggested before and restart the tomcat with the new webapp
- 8. click on the button again and take a look on Jmx. Now the line grows and after 10 seconds drop down. If you see the log you shoud see the log that give you the point where the connection was opened.
+ 7. change the context.xml as suggested before, __restart__ the tomcat and connect with jconsole
+ 8. click again on the button *open a new abandoned connection* in welcome page and take a look on jconsole. Now the line grows and after 10 seconds drop down. If you take a look at the log you shoud see the stacktrace that give you the point where the connection was opened.
  
  [Wed Aug 31 17:24:33 CEST 2016] WARNING: [org.apache.tomcat.jdbc.pool.ConnectionPool] Connection has been abandoned PooledConnection[com.mysql.jdbc.JDBC4Connection@173432e9]:java.lang.Exception
 	at org.apache.tomcat.jdbc.pool.ConnectionPool.getThreadDump(ConnectionPool.java:1072)
