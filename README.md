@@ -50,7 +50,7 @@ In order to demostrate the thesis you need to follow this steps:
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/active_connection_increase.png "Active connections increased on jconsole") 
 
-6. wait..but..the abandoned connection recognizer is active by default on Tomcat?. Actually no. From the [tomcat documentation on jdbc pool](https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html) we can find three useful properties:
+6. wait..but..the abandoned connection recognizer is active by default on Tomcat?. Actually no. From the [tomcat documentation regaring the jdbc pool](https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html) we can find three useful properties:
 
 | property name| description |
 | --- | --- |
