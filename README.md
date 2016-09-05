@@ -76,9 +76,10 @@ b. closing really the connection
 __It's important to know that without *removeAbandoned=true* the stacktrace will not appear because actually the abandoned connection check is not performed__
 
  
- 7. change the context.xml as suggested before, __restart__ the tomcat and connect with jconsole
- 8. click again on the button *open a new abandoned connection* in welcome page and take a look on jconsole. Now the line grows and after 10 seconds drop down. If you take a look at the log you shoud see the stacktrace that give you the point where the connection was opened.
+7. change the context.xml as suggested before, __restart__ the tomcat and connect again with jconsole
+8. click on the *open a new abandoned connection* button as before and take a look on jconsole. Now the line grows and after 10 seconds drop down. If you take a look at the log you shoud see the stacktrace that give you the point where the connection was opened.
  
+```
  [Wed Aug 31 17:24:33 CEST 2016] WARNING: [org.apache.tomcat.jdbc.pool.ConnectionPool] Connection has been abandoned PooledConnection[com.mysql.jdbc.JDBC4Connection@173432e9]:java.lang.Exception
 	at org.apache.tomcat.jdbc.pool.ConnectionPool.getThreadDump(ConnectionPool.java:1072)
 	at org.apache.tomcat.jdbc.pool.ConnectionPool.createConnection(ConnectionPool.java:715)
@@ -86,7 +87,23 @@ __It's important to know that without *removeAbandoned=true* the stacktrace will
 	at org.apache.tomcat.jdbc.pool.ConnectionPool.getConnection(ConnectionPool.java:187)
 	at org.apache.tomcat.jdbc.pool.DataSourceProxy.getConnection(DataSourceProxy.java:128)
 	at com.fgiovannetti.FireConnector.execute(FireConnector.java:29)
+```
 
-9. jmx notificaton ( jmxEnabled )
+9. Now we have to demostrate that when the connection is abandoned a new jmx notificaton is triggered. First of all we have to add a new property in our Resource tag
+```xml
+  <Resource name="jdbc/backoffice"
+...
+	jmxEnabled="true"
+...	/>
+```
+After that we have to __restart__ the tomcat and connect again with jconsole. A new MBean is registered on jmx called **tomcat.jdbc**. Go into the path **tomcat.jdbc -> ConnectionPool -> jdbc/backoffice -> /JdbcTomcatConnectionTest -> Catalina -> localhost -> org.apache.tomcat.jdbc.pool.jmx.ConnectionPool** and click on Notifications and therefore on **Subscribe**. 
+
+![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/jmx_notification_subscribe.png "Jmx notification subscription") 
+
+Now click on the *open a new abandoned connection* button as before and take a look on jconsole. Some notifications show up. The message field gives you the stacktrace as in the log.
+
+![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/abandoned_connection_notifications.png "Abandoned connections notifications") 
+
+You could think that **tomcat.jdbc** MBean is very similar to the previous MBean **Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice**. They are almost the same, but for some reason the second MBean doesn't show any notification event.
 
 
