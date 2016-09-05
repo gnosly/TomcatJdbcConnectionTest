@@ -58,7 +58,11 @@ In order to demostrate the thesis you need to follow this steps:
 | removeAbandonedTimeout | (int) Timeout in seconds before an abandoned(in use) connection can be removed. The default value is 60 (60 seconds). The value should be set to the longest running query your applications might have.|
 |logAbandoned | (boolean) Flag to log stack traces for application code which abandoned a Connection. Logging of abandoned Connections adds overhead for every Connection borrow because a stack trace has to be generated. The default value is false.|
 
-So you need to add the following properties in the Resource configuration inside the context.xml
+So you need to add the following properties in the Resource configuration inside the context.xml. *logAbandoned* let the tomcat to print the stacktrace of the code that is resposanble of the abandoned connection. *removeAbandonedTimeout* is set to 10 seconds for test reason. *removeAbandoned* is in charge of 
+a. enabling abandoned connections check and, if *logAbandoned* is true, logging the stacktrace
+b. closing really the connection
+
+__It's important to know that without *removeAbandoned=true* the stacktrace will not appear because actually __
 
 ```xml
   <Resource name="jdbc/backoffice"
