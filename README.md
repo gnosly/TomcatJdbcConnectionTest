@@ -19,9 +19,28 @@ In order to demostrate the thesis you need to follow this steps:
 
 
 1. clone this repository
-2. change the /META-INF/context.xml filling the correct username, password and jdbc url
+2. change the /META-INF/context.xml filling the correct username, password and jdbc url in the Resource tag
+
+```xml
+  <Resource name="jdbc/backoffice"
+            auth="Container"
+            type="javax.sql.DataSource"
+            factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+            validationQuery="/* ping */"
+            maxActive="32"
+            minIdle="0"
+            maxIdle="4"
+            maxWait="3000"
+            driverClassName="com.mysql.jdbc.Driver"
+            username="<change_username_on_context_xml>" password="<change_password_on_context_xml>"
+            url="<change_url_on_context_xml>" /> 
+```
+
 3. run the web app
-4. open the mbean xx using VisualVM or jConsole and show the metric 'active' 
+4. connect using VisualVM or jConsole to the tomcat and open the mbean Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice and show the metric 'active' clicking on the value of it.
+
+ 
+
 5. click on the button. Now you could see on Jmx that each time you click the button the line of active connection grows and never goes down   
 6. wait..but..the abandoned connection recognizer is active by default on Tomcat?. Actually no. you need to add the following properties in the Resource configuration inside the context.xml
 
