@@ -19,7 +19,7 @@ In order to demostrate the thesis you need to follow this steps:
 
 
 1. clone this repository
-2. change the /META-INF/context.xml filling the resource tag with the username, the password and the jdbc url of your db under test
+2. change the /META-INF/context.xml filling in the <Resource> the username, the password and the jdbc url of your db under test
 
 ```xml
   <Resource name="jdbc/backoffice"
@@ -37,7 +37,7 @@ In order to demostrate the thesis you need to follow this steps:
 ```
 
 3. deploy and run the application on your tomcat
-4. open jconsole and connect through jmx to the tomcat. Open the jmx MBean Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice and show the metric 'active' clicking on the value of it.
+4. open jconsole and connect through jmx to the tomcat. Open the jmx MBean Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice and show the 'active' graph clicking on its value.
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/jconsole_mbean.png "MBean opened in jconsole")
 
@@ -46,11 +46,11 @@ In order to demostrate the thesis you need to follow this steps:
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/webapp_welcome_page.png "Web app welcome page")
 
 
-6. Now you could see on jconsole that at each click the line of active connections grows and never goes down   
+6. Now you could see on jconsole that, each time you click on the button, the line of active connections grows and never goes down
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/active_connection_increase.png "Active connections increased on jconsole") 
 
-6. wait..but..the abandoned connection recognizer is active by default on Tomcat?. Actually no. From the [tomcat documentation regaring the jdbc pool](https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html) we can find three useful properties:
+7. "wait..but..I don't see any warning in the log! Is the abandoned connection recognizer active by default on Tomcat?" Actually no. From the [tomcat documentation regaring the jdbc pool](https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html) we could use three useful properties:
 
 | property name| description |
 | --- | --- |
@@ -58,7 +58,7 @@ In order to demostrate the thesis you need to follow this steps:
 | removeAbandonedTimeout | (int) Timeout in seconds before an abandoned(in use) connection can be removed. The default value is 60 (60 seconds). The value should be set to the longest running query your applications might have.|
 |logAbandoned | (boolean) Flag to log stack traces for application code which abandoned a Connection. Logging of abandoned Connections adds overhead for every Connection borrow because a stack trace has to be generated. The default value is false.|
 
-So you need to add the following properties in the Resource configuration inside the context.xml. 
+So try to add the following properties in the <Resource> inside the /META-INF/context.xml as below
 
 ```xml
   <Resource name="jdbc/backoffice"
@@ -76,8 +76,8 @@ b. closing really the connection
 __It's important to know that without *removeAbandoned=true* the stacktrace will not appear because actually the abandoned connection check is not performed__
 
  
-7. change the context.xml as suggested before, __restart__ the tomcat and connect again with jconsole
-8. click on the *open a new abandoned connection* button as before and take a look on jconsole. Now the line grows and after 10 seconds drop down. If you take a look at the log you shoud see the stacktrace that give you the point where the connection was opened.
+8. change the context.xml as suggested before, __restart__ the tomcat and connect again with jconsole
+9. click on the *open a new abandoned connection* button as before and take a look on jconsole. Now the line grows and after 10 seconds drop down. If you take a look at the log you shoud see the stacktrace that give you the point where the connection was opened.
  
 ```
  [Wed Aug 31 17:24:33 CEST 2016] WARNING: [org.apache.tomcat.jdbc.pool.ConnectionPool] Connection has been abandoned PooledConnection[com.mysql.jdbc.JDBC4Connection@173432e9]:java.lang.Exception
@@ -89,7 +89,7 @@ __It's important to know that without *removeAbandoned=true* the stacktrace will
 	at com.fgiovannetti.FireConnector.execute(FireConnector.java:29)
 ```
 
-9. Now we have to demostrate that when the connection is abandoned a new jmx notificaton is triggered. First of all we have to add a new property in our Resource tag
+10. Now we have to demostrate that when the connection is abandoned a new jmx notificaton is triggered. First of all we have to add a new property in our Resource tag
 ```xml
   <Resource name="jdbc/backoffice"
 ...
