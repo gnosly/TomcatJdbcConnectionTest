@@ -36,15 +36,15 @@ In order to demostrate the thesis you need to follow this steps:
 ```
 3. deploy and run the application on your tomcat
 4. open jconsole and connect through jmx to the tomcat. Open the jmx MBean Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice and show the 'active' graph clicking on its value.
+5. 
 ...![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/jconsole_mbean.png "MBean opened in jconsole")
+
 5. open in a browser the welcome page [http://localhost:8080/JdbcTomcatConnectionTest/] (http://localhost:8080/JdbcTomcatConnectionTest/) and click on the button *open a new abandoned connection*. 
-
-![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/webapp_welcome_page.png "Web app welcome page")
-
+...![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/webapp_welcome_page.png "Web app welcome page")
 
 6. Now you could see on jconsole that, each time you click on the button, the line of active connections grows and never goes down
 
-![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/active_connection_increase.png "Active connections increased on jconsole") 
+...![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/active_connection_increase.png "Active connections increased on jconsole") 
 
 7. "wait..but..I don't see any warning in the log! Is the abandoned connection recognizer active by default on Tomcat?" Actually no. From the [tomcat documentation regaring the jdbc pool](https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html) we could use three useful properties:
 
