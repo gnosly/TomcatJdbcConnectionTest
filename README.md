@@ -37,7 +37,7 @@ In order to demostrate the thesis you need to follow this steps:
 ```
 
 + Deploy and run the application on your tomcat
-+ Open jconsole and connect through jmx to the tomcat. Open the jmx MBean *Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice* and show the 'active' graph clicking on its value.
++ Open jconsole and connect through jmx to the tomcat. Open the jmx MBean *Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice* and open the 'active' graph clicking on its value.
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/jconsole_mbean.png "MBean opened in jconsole")
 
