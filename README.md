@@ -49,7 +49,7 @@ In order to demostrate the thesis you need to follow this steps:
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/active_connection_increase.png "Active connections increased on jconsole") 
 
-+ "wait..but..I don't see any warning in the log! Is the abandoned connection recognizer active by default on Tomcat?" Actually no. From the [tomcat documentation regaring the jdbc pool](https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html) we could use three useful properties:
++ "wait..but..I don't see any warning in the log! Is the abandoned connection recognizer active by default on Tomcat?" Actually no. From the [tomcat documentation regarding the jdbc pool](https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html) we could use three useful properties:
 
 | property name| description |
 | --- | --- |
@@ -95,7 +95,7 @@ __It's important to know that without *removeAbandoned=true* the stacktrace will
 	jmxEnabled="true"
 ...	/>
 ```
-After that we have to __restart__ the tomcat and connect again with jconsole. A new MBean is registered on jmx called **tomcat.jdbc**. Go into the path **tomcat.jdbc -> ConnectionPool -> jdbc/backoffice -> /JdbcTomcatConnectionTest -> Catalina -> localhost -> org.apache.tomcat.jdbc.pool.jmx.ConnectionPool** and click on Notifications and therefore on **Subscribe**. 
+After that we have to __restart__ the tomcat and connect again with jconsole. A new MBean is registered on jmx called **tomcat.jdbc**. Go into the path *tomcat.jdbc -> ConnectionPool -> jdbc/backoffice -> /JdbcTomcatConnectionTest -> Catalina -> localhost -> org.apache.tomcat.jdbc.pool.jmx.ConnectionPool* and click on Notifications and therefore on *Subscribe*. 
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/jmx_notification_subscribe.png "Jmx notification subscription") 
 
@@ -103,6 +103,6 @@ Now click on the *open a new abandoned connection* button as before and take a l
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/abandoned_connection_notifications.png "Abandoned connections notifications") 
 
-You could think that **tomcat.jdbc -> ConnectionPool -> jdbc/backoffice -> /JdbcTomcatConnectionTest -> Catalina -> localhost -> org.apache.tomcat.jdbc.pool.jmx.ConnectionPool** is very similar to the previously analyzed **Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice**. They are almost the same, but for some reason the second MBean doesn't show any notification event.
+You could think that *tomcat.jdbc -> ConnectionPool -> jdbc/backoffice -> /JdbcTomcatConnectionTest -> Catalina -> localhost -> org.apache.tomcat.jdbc.pool.jmx.ConnectionPool* is very similar to the previously analyzed *Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice*. They are almost the same, but for some reason the second MBean doesn't show any notification event.
 
 
