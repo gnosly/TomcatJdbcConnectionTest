@@ -18,9 +18,9 @@ When a jdbc connection is marked as 'abandoned' a log is shown and a jmx notific
 In order to demostrate the thesis you need to follow this steps:
 
 
-1. clone this repository
-2. change the /META-INF/context.xml filling in the <Resource> the username, the password and the jdbc url of your db under test
-...
+1. Clone this repository
+2. Change the /META-INF/context.xml filling in the <Resource> the username, the password and the jdbc url of your db under test
+
 ```xml
   <Resource name="jdbc/backoffice"
             auth="Container"
@@ -35,8 +35,8 @@ In order to demostrate the thesis you need to follow this steps:
             username="<change_username_on_context_xml>" password="<change_password_on_context_xml>"
             url="<change_url_on_context_xml>" /> 
 ```
-3. deploy and run the application on your tomcat
-4. open jconsole and connect through jmx to the tomcat. Open the jmx MBean Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice and show the 'active' graph clicking on its value.
+3. Deploy and run the application on your tomcat
+4. Open jconsole and connect through jmx to the tomcat. Open the jmx MBean Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice and show the 'active' graph clicking on its value.
 ...
 ...![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/jconsole_mbean.png "MBean opened in jconsole")
 
