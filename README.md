@@ -104,6 +104,6 @@ Now click on the *open a new abandoned connection* button as before and take a l
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/abandoned_connection_notifications.png "Abandoned connections notifications") 
 
-You could think that **tomcat.jdbc** MBean is very similar to the previous MBean **Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice**. They are almost the same, but for some reason the second MBean doesn't show any notification event.
+You could think that **tomcat.jdbc -> ConnectionPool -> jdbc/backoffice -> /JdbcTomcatConnectionTest -> Catalina -> localhost -> org.apache.tomcat.jdbc.pool.jmx.ConnectionPool** is very similar to the previously analyzed **Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice**. They are almost the same, but for some reason the second MBean doesn't show any notification event.
 
 
