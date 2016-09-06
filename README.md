@@ -57,7 +57,7 @@ In order to demostrate the thesis you need to follow this steps:
 | removeAbandonedTimeout | (int) Timeout in seconds before an abandoned(in use) connection can be removed. The default value is 60 (60 seconds). The value should be set to the longest running query your applications might have.|
 |logAbandoned | (boolean) Flag to log stack traces for application code which abandoned a Connection. Logging of abandoned Connections adds overhead for every Connection borrow because a stack trace has to be generated. The default value is false.|
 
-So try to add the following properties in the <Resource> inside the /META-INF/context.xml as below
+So try to add the following properties in the \<Resource\> inside the /META-INF/context.xml as below
 
 ```xml
   <Resource name="jdbc/backoffice"
