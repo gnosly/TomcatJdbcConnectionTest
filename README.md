@@ -20,8 +20,7 @@ In order to demostrate the thesis you need to follow this steps:
 
 1. clone this repository
 2. change the /META-INF/context.xml filling in the <Resource> the username, the password and the jdbc url of your db under test
-
-⋅⋅⋅```xml
+```xml
   <Resource name="jdbc/backoffice"
             auth="Container"
             type="javax.sql.DataSource"
@@ -35,7 +34,6 @@ In order to demostrate the thesis you need to follow this steps:
             username="<change_username_on_context_xml>" password="<change_password_on_context_xml>"
             url="<change_url_on_context_xml>" /> 
 ```
-
 3. deploy and run the application on your tomcat
 4. open jconsole and connect through jmx to the tomcat. Open the jmx MBean Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice and show the 'active' graph clicking on its value.
 
