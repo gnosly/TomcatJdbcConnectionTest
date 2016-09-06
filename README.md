@@ -36,9 +36,7 @@ In order to demostrate the thesis you need to follow this steps:
 ```
 3. deploy and run the application on your tomcat
 4. open jconsole and connect through jmx to the tomcat. Open the jmx MBean Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice and show the 'active' graph clicking on its value.
-
-![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/jconsole_mbean.png "MBean opened in jconsole")
-
+...![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/jconsole_mbean.png "MBean opened in jconsole")
 5. open in a browser the welcome page [http://localhost:8080/JdbcTomcatConnectionTest/] (http://localhost:8080/JdbcTomcatConnectionTest/) and click on the button *open a new abandoned connection*. 
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/webapp_welcome_page.png "Web app welcome page")
