@@ -69,8 +69,8 @@ So try to add the following properties in the \<Resource\> inside the /META-INF/
 ...	/>
 ```
 *logAbandoned* let the tomcat to print the stacktrace of the code that is resposanble of the abandoned connection. *removeAbandonedTimeout* is set to 10 seconds for speed up the test. *removeAbandoned* is in charge of 
-⋅⋅+ enabling abandoned connections check and, if *logAbandoned* is true, logging the stacktrace
-⋅⋅+ closing really the connection
+* enabling abandoned connections check and, if *logAbandoned* is true, logging the stacktrace
+* closing really the connection
 
 __It's important to know that without *removeAbandoned=true* the stacktrace will not appear because actually the abandoned connection check is not performed__
 
