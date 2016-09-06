@@ -21,7 +21,7 @@ In order to demostrate the thesis you need to follow this steps:
 1. clone this repository
 2. change the /META-INF/context.xml filling in the <Resource> the username, the password and the jdbc url of your db under test
 
-```xml
+⋅⋅⋅```xml
   <Resource name="jdbc/backoffice"
             auth="Container"
             type="javax.sql.DataSource"
