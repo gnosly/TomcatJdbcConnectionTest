@@ -19,7 +19,7 @@ In order to demostrate the thesis you need to follow this steps:
 
 
 + Clone this repository
-+ Change the /META-INF/context.xml filling in the <Resource> the username, the password and the jdbc url of your db under test
++ Change the /META-INF/context.xml filling in the \<Resource\> the username, the password and the jdbc url of your db under test
 
 ```xml
   <Resource name="jdbc/backoffice"
