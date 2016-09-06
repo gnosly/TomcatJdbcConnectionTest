@@ -95,12 +95,13 @@ __It's important to know that without *removeAbandoned=true* the stacktrace will
 	jmxEnabled="true"
 ...	/>
 ```
+With *jmxEnabled* a new MBean will be registered on jmx called *tomcat.jdbc*.
 
-Then we have to __restart__ the tomcat and connect again with jconsole. With *jmxEnabled* a new MBean is registered on jmx called **tomcat.jdbc**. Go into the path *tomcat.jdbc -> ConnectionPool -> jdbc/backoffice -> /JdbcTomcatConnectionTest -> Catalina -> localhost -> org.apache.tomcat.jdbc.pool.jmx.ConnectionPool* and click on *Notifications* and therefore on *Subscribe*. 
++ __Restart the tomcat__ and connect again with jconsole. Go into the path *tomcat.jdbc -> ConnectionPool -> jdbc/backoffice -> /JdbcTomcatConnectionTest -> Catalina -> localhost -> org.apache.tomcat.jdbc.pool.jmx.ConnectionPool* and click on *Notifications* and therefore on *Subscribe*. 
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/jmx_notification_subscribe.png "Jmx notification subscription") 
 
-Now click on the *open a new abandoned connection* button as before and take a look on jconsole. Some notifications show up. The message field gives you the stacktrace as in the log.
++ Now click on the *open a new abandoned connection* button as before and take a look on jconsole. Some notifications show up. The message field gives you the stacktrace as in the log.
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/abandoned_connection_notifications.png "Abandoned connections notifications") 
 
