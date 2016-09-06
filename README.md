@@ -69,14 +69,14 @@ So try to add the following properties in the \<Resource\> inside the /META-INF/
 ...	/>
 ```
 *logAbandoned* let the tomcat to print the stacktrace of the code that is resposanble of the abandoned connection. *removeAbandonedTimeout* is set to 10 seconds for speed up the test. *removeAbandoned* is in charge of 
-* enabling abandoned connections check and, if *logAbandoned* is true, logging the stacktrace
-* closing really the connection
+   1. enabling abandoned connections check and, if *logAbandoned* is true, logging the stacktrace
+   2. closing really the connection
 
 __It's important to know that without *removeAbandoned=true* the stacktrace will not appear because actually the abandoned connection check is not performed__
 
  
 + change the context.xml as suggested before, __restart__ the tomcat and connect again with jconsole
-+ click on the *open a new abandoned connection* button as before and take a look on jconsole. Now the line grows and after 10 seconds drop down. If you take a look at the log you shoud see the stacktrace that give you the point where the connection was opened.
++ click on the *open a new abandoned connection* button as before and take a look on jconsole. Now the line grows and after 10 seconds drops down. If you take a look at the log you shoud see the stacktrace that give you the point where the connection was opened.
  
 ```
  [Wed Aug 31 17:24:33 CEST 2016] WARNING: [org.apache.tomcat.jdbc.pool.ConnectionPool] Connection has been abandoned PooledConnection[com.mysql.jdbc.JDBC4Connection@173432e9]:java.lang.Exception
@@ -88,14 +88,15 @@ __It's important to know that without *removeAbandoned=true* the stacktrace will
 	at com.fgiovannetti.FireConnector.execute(FireConnector.java:29)
 ```
 
-+ Now we have to demostrate that when the connection is abandoned a new jmx notificaton is triggered. First of all we have to add a new property in our Resource tag
++ Now we have to demostrate that when the connection is abandoned a new jmx notificaton is triggered. First of all we have to add a new property in our \<Resource\>
 ```xml
   <Resource name="jdbc/backoffice"
 ...
 	jmxEnabled="true"
 ...	/>
 ```
-After that we have to __restart__ the tomcat and connect again with jconsole. A new MBean is registered on jmx called **tomcat.jdbc**. Go into the path *tomcat.jdbc -> ConnectionPool -> jdbc/backoffice -> /JdbcTomcatConnectionTest -> Catalina -> localhost -> org.apache.tomcat.jdbc.pool.jmx.ConnectionPool* and click on Notifications and therefore on *Subscribe*. 
+
+Then we have to __restart__ the tomcat and connect again with jconsole. With *jmxEnabled* a new MBean is registered on jmx called **tomcat.jdbc**. Go into the path *tomcat.jdbc -> ConnectionPool -> jdbc/backoffice -> /JdbcTomcatConnectionTest -> Catalina -> localhost -> org.apache.tomcat.jdbc.pool.jmx.ConnectionPool* and click on *Notifications* and therefore on *Subscribe*. 
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/jmx_notification_subscribe.png "Jmx notification subscription") 
 
