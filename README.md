@@ -1,4 +1,4 @@
-# JdbcTomcatConnectionTest (WIP)
+# TomcatJdbcConnectionTest (WIP)
 The goal of this web app is to show how to analyze the tomcat connection pool in case of abandoned connections.
 
 ## How it works
