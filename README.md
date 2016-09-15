@@ -2,9 +2,9 @@
 The goal of this web app is to show how to analyze the tomcat connection pool in case of abandoned connections.
 
 ## How it works
-This web app let you create as many abandoned connections as you want just clicking on a button. In fact, each time the button is pressed a new connection is opened and never closed. This scenario let us investigate how set up the tomcat datasource configuration in order to show the code line where the connection was abandoned.
+This web app let you create as many abandoned connections as you want just clicking on a button: each time the button is pressed a new connection is opened and never closed. This scenario makes possible to investigate how set up the tomcat datasource configuration in order to show the code line where the connection was abandoned.
 
-## Hypotesys
+## Preconditions
 You need the following tools to execute the "experiment". The tool versions are not stricly important but they are what I actualy tested:
 - Tomcat 7.0.70
 - Mysql Connector Java 5.1.39
