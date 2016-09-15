@@ -70,7 +70,7 @@ You should therefore try to add the following properties in the \<Resource\> ins
 ...	/>
 ```
 *logAbandoned* requests tomcat to print the stacktrace of the code that is responsible of the abandoned connection. *removeAbandonedTimeout* is set to 10 seconds for speed up the test. *removeAbandoned* is in charge of 
-   1. enabling abandoned connections check and
+   1. enabling abandoned connections check
    2. if *logAbandoned* is true, logging the stacktrace
    3. really closing the connection
 
