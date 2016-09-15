@@ -15,11 +15,11 @@ When a jdbc connection is marked as 'abandoned' a log is shown and a jmx notific
 
 
 ## Demostration
-In order to demostrate the thesis you need to follow this steps:
+In order to demostrate the thesis you need to follow these steps:
 
 
 + Clone this repository
-+ Change the /META-INF/context.xml filling in the \<Resource\> the username, the password and the jdbc url of your db under test
++ Change the /META-INF/context.xml specifying username, password and jdbc url of your db under test in the \<Resource\> section
 
 ```xml
   <Resource name="jdbc/backoffice"
@@ -37,7 +37,7 @@ In order to demostrate the thesis you need to follow this steps:
 ```
 
 + Deploy and run the application on your tomcat
-+ Open jconsole and connect through jmx to the tomcat. Open the jmx MBean *Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice* and open the 'active' graph clicking on its value.
++ Open jconsole and connect to the tomcat using jmx. Open the jmx MBean *Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice* and open the 'active' graph clicking on its value.
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/jconsole_mbean.png "MBean opened in jconsole")
 
@@ -45,11 +45,12 @@ In order to demostrate the thesis you need to follow this steps:
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/webapp_welcome_page.png "Web app welcome page")
 
-+ Now you could see on jconsole that, each time you click on the button, the line of active connections grows and never goes down
+Now you could see on jconsole that, each time you click on the button, the line of active connections grows and never goes down
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/active_connection_increase.png "Active connections increased on jconsole") 
 
-+ "wait..but..I don't see any warning in the log! Is the abandoned connection recognizer active by default on Tomcat?" Actually no. From the [tomcat documentation regarding the jdbc pool](https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html) we could use three useful properties:
+"wait..but..I don't see any warning in the log! Is the abandoned connection recognizer active by default on Tomcat?"
+Actually no. From the [tomcat documentation regarding the jdbc pool](https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html) we could use three useful properties:
 
 | property name| description |
 | --- | --- |
@@ -57,7 +58,7 @@ In order to demostrate the thesis you need to follow this steps:
 | removeAbandonedTimeout | (int) Timeout in seconds before an abandoned(in use) connection can be removed. The default value is 60 (60 seconds). The value should be set to the longest running query your applications might have.|
 |logAbandoned | (boolean) Flag to log stack traces for application code which abandoned a Connection. Logging of abandoned Connections adds overhead for every Connection borrow because a stack trace has to be generated. The default value is false.|
 
-So try to add the following properties in the \<Resource\> inside the /META-INF/context.xml as below
+You should therefore try to add the following properties in the \<Resource\> inside the /META-INF/context.xml as below
 
 ```xml
   <Resource name="jdbc/backoffice"
@@ -68,15 +69,16 @@ So try to add the following properties in the \<Resource\> inside the /META-INF/
 
 ...	/>
 ```
-*logAbandoned* let the tomcat to print the stacktrace of the code that is resposanble of the abandoned connection. *removeAbandonedTimeout* is set to 10 seconds for speed up the test. *removeAbandoned* is in charge of 
-   1. enabling abandoned connections check and, if *logAbandoned* is true, logging the stacktrace
-   2. closing really the connection
+*logAbandoned* requests tomcat to print the stacktrace of the code that is responsible of the abandoned connection. *removeAbandonedTimeout* is set to 10 seconds for speed up the test. *removeAbandoned* is in charge of 
+   1. enabling abandoned connections check
+   2. if *logAbandoned* is true, logging the stacktrace
+   3. really closing the connection
 
 __It's important to know that without *removeAbandoned=true* the stacktrace will not appear because actually the abandoned connection check is not performed__
 
  
 + change the context.xml as suggested before, __restart__ the tomcat and connect again with jconsole
-+ click on the *open a new abandoned connection* button as before and take a look on jconsole. Now the line grows and after 10 seconds drops down. If you take a look at the log you shoud see the stacktrace that give you the point where the connection was opened.
++ click on the *open a new abandoned connection* button as before and take a look on jconsole. Now the line grows and after 10 seconds drops down. If you take a look at the log you shoud see the stacktrace with the point where the connection was opened.
  
 ```
  [Wed Aug 31 17:24:33 CEST 2016] WARNING: [org.apache.tomcat.jdbc.pool.ConnectionPool] Connection has been abandoned PooledConnection[com.mysql.jdbc.JDBC4Connection@173432e9]:java.lang.Exception
@@ -105,6 +107,14 @@ With *jmxEnabled* a new MBean will be registered on jmx called *tomcat.jdbc*.
 
 ![alt text](https://github.com/gnosly/JdbcTomcatConnectionTest/blob/master/src/main/doc/abandoned_connection_notifications.png "Abandoned connections notifications") 
 
-You could think that *tomcat.jdbc -> ConnectionPool -> jdbc/backoffice -> /JdbcTomcatConnectionTest -> Catalina -> localhost -> org.apache.tomcat.jdbc.pool.jmx.ConnectionPool* is very similar to the previously analyzed *Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice*. They are almost the same, but for some reason the second MBean doesn't show any notification event.
+You could think that
+
+   *tomcat.jdbc -> ConnectionPool -> jdbc/backoffice -> /JdbcTomcatConnectionTest -> Catalina -> localhost -> org.apache.tomcat.jdbc.pool.jmx.ConnectionPool*
 
 
+is very similar to the previously analyzed
+
+   *Catalina -> DataSource -> /JdbcTomcatConnectionTest -> localhost -> javax.sql.DataSource -> jdbc/backoffice*
+
+
+They are almost the same, but for some reason the second MBean doesn't show any notification event.
