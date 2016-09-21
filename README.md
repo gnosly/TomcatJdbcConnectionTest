@@ -1,4 +1,4 @@
-# TomcatJdbcConnectionTest (WIP)
+# TomcatJdbcConnectionTest
 The goal of this web app is to show how to analyze the tomcat connection pool in case of abandoned connections.
 
 ## How it works
@@ -16,11 +16,11 @@ When a jdbc connection is marked as 'abandoned' a log is shown and a jmx notific
 
 ## Demostration
 In order to demostrate the thesis you need to follow these steps:
-1. Starting the web application
-2. Replicating the abandoned connections
-3. Enabling the stacktrace log
-4. Activating jdbc notificaions on jmx
-5. Final considerations
+   1. Starting the web application
+   2. Replicating the abandoned connections
+   3. Enabling the stacktrace log
+   4. Activating jdbc notificaions on jmx
+   5. Final considerations
 
 ### 1. Starting the web application
 
